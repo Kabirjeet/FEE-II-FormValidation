@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+        integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        #outerBox {
+            /* background-color: red; */
+            height: 90vh;
+            margin-left: 35%;
+            margin-right: 35%;
+            margin-top: 2%;
+        }
+
+        #topArea {
+            /* background-color: green; */
+            width: 100%;
+            height: 100px;
+            padding-top: 10px;
+            border-bottom: 2px solid black;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #topArea button {
+            border-radius: 50%;
+            border: 1px solid black;
+            font-size: 26px;
+        }
+
+        #btnContent1 {
+            background-color: #4eae51;
+        }
+
+
+        #buttons {
+            padding-bottom: 30px;
+            display: flex;
+            gap: 70px;
+        }
+
+        #formArea {
+            margin-top: 40px;
+            /* text-align: center; */
+        }
+
+        #nextBtn {
+            background-color: #4eae51;
+            color: white;
+            border: none;
+            width: 50px;
+            height: 30px;
+            border-radius: 5px;
+        }
+
+        #prevBtn {
+            border: 1px solid gray;
+            width: 50px;
+            height: 30px;
+            border-radius: 5px;
+        }
+
+        #strengthBar {
+            background-color: lightgray;
+            height: 5px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="outerBox">
+        <div id="topArea">
+            <h1>Create Your Account</h1>
+            <p id="topHeading">Please fill in all required fields</p>
+            <div id="buttons">
+                <button id="btnContent1">1</button>
+                <button id="btnContent2">2</button>
+                <button id="btnContent3">3</button>
+            </div>
+        </div>
+
+        <div id="formArea">
+            <div id="formContent1">
+                <label>Full Name<span style="color: red;">*</span>: </label> <br>
+                <input type="text" name="fname" id="fname" class="formInputs" size="65" oninput="checkFname()"
+                    placeholder="Eg. Joy Smith">
+                <div id="checkSymbolfname" style="display: none; color: green;">Correct!</div> <br> <br>
+
+                <label>Email Address<span style="color: red;">*</span></label> <br>
+                <input type="text" name="mail" id="mail" class="formInputs" size="65" oninput="checkEmail()"
+                    placeholder="example@gmail.com">
+                <div id="checkSymbolmail" style="display: none; color: green;">Correct!</div> <br> <br>
+
+                <label>Phone Number<span style="color: red;">*</span>: </label> <br>
+                <input type="text" name="phoneNum" id="phoneNum" class="formInputs" size="65" oninput="checkPhone()"
+                    placeholder="1234567890">
+                <div id="checkSymbolphone" style="display: none; color: green;">Correct!</div> <br> <br>
+
+                <input type="button" id="nextBtn" value="Next" onclick="moveForward(1)">
+                <p id="nextError"></p>
+            </div>
+
+            <div id="formContent2" style="display: none;">
+                <label>Account Type<span style="color: red;">*</span>: </label> <br>
+                <select name="accType" id="accType" onchange="changeAccount()">
+                    <option value="">Select Account Type</option>
+                    <option value="Basic">Basic</option>
+                    <option value="Business">Business</option>
+                </select> <br> <br>
+
+                <div id="businessContent" style="display: none;">
+                    <label>Business Name: </label> <br>
+                    <input type="text" name="bname" id="bname" class="formInputs" size="40"
+                        placeholder="eg. Smith Enterprises">
+                    <div id="checkSymbol"></div> <br> <br>
+
+                    <label>Tax ID<span style="color: red;">*</span>: </label> <br>
+                    <input type="text" name="tid" id="tid" class="formInputs" size="40" oninput="checkTax()"
+                        placeholder="AB12-AB12-AB12">
+                    <div id="checkSymbolTax" style="display: none; color: green;">Correct!</div> <br> <br>
+
+                    <label">Address: </label> <br>
+                        <textarea name="address" id="address" cols="38"></textarea>
+                </div> <br>
+
+                <label>Username:</label> <br>
+                <input type="text" name="Uname" id="uname" class="formInputs" size="40"> <br> <br>
+
+                <label>Password<span style="color: red;">*</span>:</label> <br>
+                <input type="password" name="pass" id="pass" class="formInputs" size="40" oninput="checkPassword()">
+                <div id="strengthBar"></div>
+                <p><b>Password Strength: <span id="strenghtText">Very Weak</span></b></p>
+                <div id="passwordHints">
+                    <p><span id="eight" style="color: red;"><b>X</b></span>&nbsp;&nbsp;At least 8 characters</p>
+                    <p><span id="upper" style="color: red;"><b>X</b></span>&nbsp;&nbsp;At least 1 Upper Case character
+                    </p>
+                    <p><span id="lower" style="color: red;"><b>X</b></span>&nbsp;&nbsp;At least 1 lower case character
+                    </p>
+                    <p><span id="num" style="color: red;"><b>X</b></span>&nbsp;&nbsp;At least 1 number</p>
+                    <p><span id="spcl" style="color: red;"><b>X</b></span>&nbsp;&nbsp;At least 1 special character</p>
+                </div>
+
+                <input type="button" id="prevBtn" value="Prev" onclick="moveBackward(2)">
+                <input type="button" id="nextBtn" value="Next" onclick="moveForward(2)">
+            </div>
+
+            <div id="formContent3" style="display: none;">
+                <label>Subscribe to Newsletter?</label> <br>
+                <select name="Newsletter" id="Newsletter">
+                    <option value="yes">Yes, Please</option>
+                    <option value="no">No, Thank you</option>
+                </select> <br> <br>
+
+                <label>Prefered Communication:</label> <br>
+                <select name="Communication" id="Communication">
+                    <option value="email">Email</option>
+                    <option value="phone">Phone</option>
+                </select> <br><br>
+
+                <input type="checkbox" name="terms" id="terms" onchange="checkboxValidate()"> I agree to Terms &
+                Conditions<span style="color: red;">*</span> <br>
+                <input type="checkbox" name="privacy" id="privacy" onchange="checkboxValidate()"> I agree to the
+                Privacy Policy<span style="color: red;">*</span> <br> <br>
+
+                <input type="button" id="prevBtn" value="Prev" onclick="moveBackward(3)">
+                <input type="button" id="nextBtn" value="Submit" onclick="submit()">
+            </div>
+        </div>
+        <div id="submitMsg" style="display: none;">
+            <center>
+                <h1 id="bye"></h1>
+            </center>
+        </div>
+    </div>
+
+    <script>
+        let is_valid = 0;
+
+        function checkFname() {
+            const name = document.getElementById('fname').value;
+            const fnamecheck = document.getElementById('checkSymbolfname');
+
+            if (/[A-Za-z]{3,}\s{1}[A-Za-z]+/.test(name)) {
+                fnamecheck.style.display = 'inline-block';
+                is_valid = 1;
+                document.getElementById('nextError').style.display = 'none';
+            } else {
+                fnamecheck.style.display = 'none';
+                is_valid = 0;
+            }
+        }
+
+        function checkPhone() {
+            const phone = document.getElementById('phoneNum').value;
+            const phonecheck = document.getElementById('checkSymbolphone');
+
+            if (/[0-9]{10}/.test(phone)) {
+                phonecheck.style.display = 'inline-block';
+                is_valid = 1;
+                document.getElementById('nextError').style.display = 'none';
+            } else {
+                phonecheck.style.display = 'none';
+                is_valid = 0;
+                document.getElementById('nextError').style.display = 'none';
+            }
+        }
+
+        function checkEmail() {
+            const email = document.getElementById('mail').value;
+            const mailcheck = document.getElementById('checkSymbolmail');
+
+            if (/[A-Za-z0-9_-]*\@[A-Za-z]+\.[A-Za-z]{2,3}/.test(email)) {
+                mailcheck.style.display = 'inline-block';
+                is_valid = 1;
+                document.getElementById('nextError').style.display = 'none';
+            } else {
+                mailcheck.style.display = 'none';
+                is_valid = 0;
+                document.getElementById('nextError').style.display = 'none';
+            }
+
+        }
+
+        function changeAccount() {
+            const acc = document.getElementById('accType').value;
+            const buss = document.getElementById('businessContent');
+
+            if (acc === 'Business') {
+                buss.style.display = 'block';
+            } else {
+                buss.style.display = 'none';
+            }
+        }
+
+        function checkTax() {
+            is_valid = 0;
+            const tax = document.getElementById('tid').value;
+            const taxValidate = document.getElementById('checkSymbolTax');
+
+            if (/[A-Z0-9]{4}\-[A-Z0-9]{4}\-[A-Z0-9]{4}/.test(tax)) {
+                taxValidate.style.display = 'block';
+                is_valid = 1;
+            } else {
+                taxValidate.style.display = 'none';
+                is_valid = 0;
+            }
+        }
+
+        function checkPassword() {
+            let strength = 0;
+            const pass = document.getElementById('pass').value;
+            const bar = document.getElementById('strengthBar');
+            const text = document.getElementById('strenghtText');
+
+            if (pass.length > 0) strength += 5;
+
+            if (pass.length >= 8) {
+                strength += 20;
+                document.getElementById('eight').style.color = 'green';
+                document.getElementById('eight').textContent = '✔';
+                is_valid = 1;
+            } else {
+                document.getElementById('eight').style.color = 'red';
+                document.getElementById('eight').textContent = 'X';
+                document.getElementById('eight').style.fontWeight = 'bold';
+                is_valid = 0;
+            }
+
+            if (/[a-z]+/.test(pass)) {
+                strength += 15;
+                document.getElementById('lower').style.color = 'green';
+                document.getElementById('lower').textContent = '✔';
+                is_valid = 1;
+            } else {
+                document.getElementById('lower').style.color = 'red';
+                document.getElementById('lower').textContent = 'X';
+                document.getElementById('lower').style.fontWeight = 'bold';
+                is_valid = 0;
+            }
+
+            if (/[A-Z]+/.test(pass)) {
+                strength += 20;
+                document.getElementById('upper').style.color = 'green';
+                document.getElementById('upper').textContent = '✔';
+                is_valid = 1;
+            } else {
+                document.getElementById('upper').style.color = 'red';
+                document.getElementById('upper').textContent = 'X';
+                document.getElementById('upper').style.fontWeight = 'bold';
+                is_valid = 0;
+            }
+
+            if (/[0-9]+/.test(pass)) {
+                strength += 20;
+                document.getElementById('num').style.color = 'green';
+                document.getElementById('num').textContent = '✔';
+                is_valid = 1;
+            } else {
+                document.getElementById('num').style.color = 'red';
+                document.getElementById('num').textContent = 'X';
+                document.getElementById('num').style.fontWeight = 'bold';
+                is_valid = 0;
+            }
+
+            if (/[^A-Za-z0-9]+/.test(pass)) {
+                strength += 20;
+                document.getElementById('spcl').style.color = 'green';
+                document.getElementById('spcl').textContent = '✔';
+                is_valid = 1;
+            } else {
+                document.getElementById('spcl').style.color = 'red';
+                document.getElementById('spcl').textContent = 'X';
+                document.getElementById('spcl').style.fontWeight = 'bold';
+                is_valid = 0;
+            }
+
+            bar.style.width = strength + "%";
+
+            if (strength <= 20) {
+                bar.style.backgroundColor = "red";
+                text.textContent = "Very Weak";
+            }
+
+            if (strength > 20 && strength <= 40) {
+                bar.style.backgroundColor = "orange";
+                text.textContent = "Weak";
+            }
+
+            if (strength > 40 && strength <= 60) {
+                bar.style.backgroundColor = "yellow";
+                text.textContent = "Moderate";
+            }
+
+            if (strength > 60 && strength <= 80) {
+                bar.style.backgroundColor = "lightgreen";
+                text.textContent = "Strong";
+            }
+
+            if (strength > 80 && strength <= 100) {
+                bar.style.backgroundColor = "darkgreen";
+                text.textContent = "Very Strong";
+            }
+
+        }
+
+        function checkboxValidate() {
+            const checkbtn1 = document.getElementById('terms');
+            const checkbtn2 = document.getElementById('privacy');
+            // is_valid = 0;
+            if ((checkbtn1.checked == true) && (checkbtn2.checked == true)) {
+                is_valid = 1;
+            } else {
+                is_valid = 0;
+            }
+        }
+
+        // function privacyValidate(){
+        //     const checkbtn = document.getElementById('privacy');
+        //     is_valid = 0;
+        //     if(checkbtn.checked == true){
+        //         is_valid = 1;
+        //     } else {l̥ō
+        //         is_valid = 0;
+        //     }
+        // }
+
+        function moveForward(currStep) {
+ 
+            if (is_valid === 1) {
+                document.getElementById(`formContent${currStep}`).style.display = 'none';
+                document.getElementById(`formContent${currStep + 1}`).style.display = 'block';
+
+                // document.getElementById(`btnContent${currStep}`).style.backgroundColor = 'white';
+                document.getElementById(`btnContent${currStep + 1}`).style.backgroundColor = '#4eae51';
+            } else {
+                document.getElementById('nextError').textContent = 'Fill out fields with *';
+                document.getElementById('nextError').style.color = 'red';
+            }
+
+            if(is_valid === 1){
+                is_valid = 0;
+            }
+        }
+
+        function moveBackward(currStep) {
+            document.getElementById(`formContent${currStep}`).style.display = 'none';
+            document.getElementById(`formContent${currStep - 1}`).style.display = 'block';
+
+            document.getElementById(`btnContent${currStep}`).style.backgroundColor = 'white';
+            document.getElementById(`btnContent${currStep - 1}`).style.backgroundColor = '#4eae51';
+        }
+
+        function submit() {
+            if (is_valid == 1) {
+                document.getElementById('btnContent1').style.display = 'none';
+                document.getElementById('btnContent2').style.display = 'none';
+                document.getElementById('btnContent3').style.display = 'none';
+                document.getElementById('formArea').style.display = 'none';
+                document.getElementById('topHeading').style.display = 'none';
+
+                document.getElementById('submitMsg').style.display = 'block';
+                document.getElementById('bye').textContent = 'Thanks for filling form!';
+            }
+        }
+
+    </script>
+</body>
+
+</html>
